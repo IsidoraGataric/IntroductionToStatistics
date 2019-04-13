@@ -1,6 +1,6 @@
-############## Deskriptivna statistika (bivarijatna)!
+########################## Descriptive statistics (bivariate)
 
-# Ucitavanje paketa (nije neophodno, ali ako se zapuca negde).
+# Installing the packages.
 
 install.packages("car")
 install.packages("amap")
@@ -17,14 +17,12 @@ install.packages("rpart")
 install.packages("vcd")
 install.packages("corpora")
 
-########################## Frekvencija i kros-tabs
+########################## Frequencies and cross-tabs
 
-# Sta je kros-tab (iliti, kros-tabulacija)? "Analiza" koju radimo kada zelimo da utvrdimo frekvenciju svake od kategorije (npr. da li podjednak broj muskaraca i zena u produkciji ove tri kategorije filera). Nezavisna i zavisna varijabla?
+# What is cross-tabulation? The "analysis" we do when we want to determine the frequency of each of the categories (for example, whether the same number of men and women produced by these three categories of FILLER variable).
 
-NV -- pol.
-ZV -- FILLER (3 kategorije).
-
-# Dve kategorijalne varijable (FILLER (silence, uh, uhm) i pol (muski/zenski).
+# Factor -- pol.
+# Dependent variable -- FILLER (3 kategorije). Both, DV & F are categorical variables.
 
 UHM <- read.delim(file.choose())
 attach(UHM)
@@ -37,7 +35,7 @@ freqs
 #  uh         161  233
 #  uhm        170  104
 
-# Procenti.
+# Percentages.
 
 percentages <- prop.table(table(FILLER, SEX), margin=2)
 percentages
@@ -47,28 +45,27 @@ percentages
 #  uh      0.3207171 0.4678715
 #  uhm     0.3386454 0.2088353
 
-# MARGIN = 1; MARGINE = 2 ?! Razlika: margin 2 je bolja opcija zato sto je suma svih nivoa varijable (1), a kada se stavi 1 onda je za svaki nivo se gleda odnos MUSKARCI/ZENE, ali ne i odnos tog nivoa sa ostalima (nekada bas ovo i zelite, zavisi).
+# MARGIN = 1; MARGINE = 2?! Difference: margin 2 is a better option because it is the sum of all the levels of the variable, when the margin is 1 then you can see only the relationship between 2 levels of one factor (MALE vs. FEMALE), but not the ratio of that level to others (for e.g. MALE/SMOKE, MALE/NO-SMOKE, FEMALE/SMOKE, FEMALE/NO-SMOKE).
 
-# Nesto detaljnije podatke.
+# More detailed. 
 
 addmargins(freqs)
 
-####################### Bar plots and mosaic plots
+########################## Bar plots and mosaic plots
 
-# Hajde da prikazemo vizuelno nase varijable.
 plot(FILLER~SEX)
 
 plot(GENRE,FILLER)
 plot(table(GENRE,FILLER))
 mosaicplot(table(GENRE,FILLER))
 
-####################### Spineplots
+########################## Spineplots
 
-# Ovi grafici su za slucajeve kada vam je ZV kategorijalna (nominalna), a NV kontinuirana (interval/racio).
+# These graphics are for cases where your DV is categorical (nominal) and IV (independent variable) is continuous (interval / ratios).
 
 spineplot(FILLER~LENGTH)
 
-####################### Line plots
+########################## Line plots
 
 fill.table <- prop.table(table(FILLER, SEX), 2)
 fill.table
@@ -84,14 +81,12 @@ points(fill.table[,2], type="b")
 
 ########################## Means
 
-# Obrnut slucaj, ZV je kontinuirana (interval/racio), NV kategorijalna (nominalna).
+# Reverse case, DV is continuous (interval/ratios), IV/Factor is categorical (nominal). 
 
 mean(LENGTH[SEX == "female"])
 # [1] 928.3984
 mean(LENGTH[SEX == "male"])
 # [1] 901.5803
-
-# Kako Gris kaze, ovo je primitivan nacin racunanja (ahahaha, strana 141)! Ali da, definitivno postoji bolja varijanta.
 
 tapply(LENGTH, SEX, mean)
 #  female     male 
@@ -155,6 +150,6 @@ covariance
 cor(MS_LEARNER, LENGTH, method="pearson")
 # [1] 0.9337171
 
-####################################### LINEARNA REGRESIJA (jako lose objasnjenja u ovom delu knjige, preskocicemo za sada, sledece nedelje se radi bas lekcija KORELACIJA i LINEARNA REGRESIJA).
+########################## LINEARNA REGRESIJA (jako lose objasnjenja u ovom delu knjige, preskocicemo za sada, sledece nedelje se radi bas lekcija KORELACIJA i LINEARNA REGRESIJA).
 
 # Od 147 do 156 nemojte citati, jako je lose objasnjeno u knjizi.
