@@ -1,6 +1,6 @@
 ######################### Descriptive statistics
 
-# Ucitavanje paketa (nije neophodno, ali ako se zapuca negde).
+# Installing the packages.
 
 install.packages("car")
 install.packages("amap")
@@ -17,7 +17,7 @@ install.packages("rpart")
 install.packages("vcd")
 install.packages("corpora")
 
-# Ucitavanje seta podataka.
+# Loading data set.
 
 UHM <- read.delim(file.choose())
 str(UHM)
@@ -29,14 +29,14 @@ str(UHM)
 #  $ LENGTH: int  1014 1188 889 265 465 1278 671 1079 643 1165 ...
 attach(UHM)
 
-# Vrlo jednostavna funkcij TABLE nam omogucava da dobijemo uvid u broj podataka za svaku kategoriju varijable iz seta podataka (ona varijabla FILLER (uh, uhm, silence)). 
+# Simple TABLE function allows us to get an insight into the number of data for each category of variables from the data set (that variable FILLER (uh, uhm, silence)).
 
 table(FILLER)
 # FILLER
 # silence      uh     uhm 
 #     332     394     274 
 
-# Ako zelite da dobijete %, onda ubacite podeljeno sa duzinom od iste varijable /length(FILLER), ili (JOS BOLJE) prop.table(table(FILLER)).
+# If you want to get percentages, then divided table(FILLER) with the length of the same variable (length (FILLER)), or just insret prop.table(table(FILLER)).
 
 table(FILLER)/length(FILLER)
 # FILLER
@@ -48,16 +48,12 @@ prop.table(table(FILLER))
 # silence      uh     uhm 
 #   0.332   0.394   0.274 
 
-# Kod deskritpivne statistike je preporucljivo koristiti graficke prikaze, mnogo su pregledniji.
+######################### Scatterplots and line plots
 
-##################### Scatterplots and line plots
-
-# Ova dva tipa grafika su najcesce koriscena u jezickim istrazivanjima (deskriptivna statistika).
-
-# Iako ovoga nema u knjizi, ajde da plot-ujemo ovo sto smo racunali, sta vidimo?!
+# Example 1.
 plot(FILLER)
 
-# Crtanje jednog fiktivnog line-grapha (ovo je dosta konfuzno u knjizi objasnjeno, fora je u koriscenju "c" funkcije).
+# Example 2. 
 
 a <- c(1, 3, 5, 2, 4)
 b <- 1:5
@@ -65,19 +61,17 @@ b <- 1:5
 plot(a)
 plot(b)
 
-# Kada ukucamo ovako, sta vidimo da se desava? Sta je "a", sta je "b"?
+# if the graph is defined in this way, "a" is on the x axis, and "b" is on the y axis. 
 plot(a, b)
 
-# Ako zelimo da specifikujemo tip grafika, onda kucamo "type= .... (pa neko slovo)". Najsonovnija slova: "l" (line); "p" (points); "b" (both).
+# If we want to specify a type of graphics, then we type "type = .... (so some letter)" ("l" (line); "p" (points); "b" (both)).
 plot(b, a, type="b")
 plot(b, a, type="l")
 
-# Naravno, ovo mozete mnogo da zakomplikujete npr. sledecim kodom.
+# You can do this and much more complicated.
 plot(b, a, xlab="A vector b", ylab="A vector b", xlim=c(0, 8), ylim=c(0,8), type="b")
 
-# Za sta nam sluzi xlab, ylab, xlim, ylim?!
-
-# 4 grafika na 1 slici, mnogo vise podataka. Sta vidimo?!
+# Different types of graphics.
 
 m <- 1:5
 n <- 5:1
@@ -87,45 +81,36 @@ plot(m, n, type="b")
 points(x, y, type ="b")
 grid()
 
-# Zasto ne prikaze x i y?! Zato sto su m i n razlicitog opsega (da ne kazem, too small) za x i y.
-
-# Jedno od potencijalnih resenja (koje ja licno ne preoprucujem) ubacivanje min i max.
+# Min and Max, in this example when you use data of different types. 
 plot(m, n, type="b", xlim=c(0, max(m, x)), ylim=c(0, max(n, y)), xlab="Vectors m and x", ylab="Vectors n and y")
 grid()
 points(x, y, type="b")
 
-# Sta je uradio?! 
-
-###################### Pie chart
+######################### Pie chart
 
 pie(table(FILLER), col=c("grey20", "grey50", "grey80"))
 
-# Ove brojeve "gray20", "gray50" etc. mozete da izguglate.
+######################### Bar plot
 
-###################### Bar plot
+# Useful when you have nominal/ordinal variable(s).
 
 barplot(table(FILLER), col=c("gray40", "grey60", "grey80"), names.arg=c("Silence", "uh", "uhm"), space=0)
 text(c(0.5, 1.5, 2.5), table(FILLER)/2, labels=table(FILLER))
 
-# Da li se secate koji nam je prvi grafik ponudjen od strane R-a za ovu analizu?! Upravo bar chart, zasto?! :-)
-
 mids <- barplot(table(FILLER), col=c("grey40", "grey60", "grey80"))
 text(mids, table(FILLER), labels=table(FILLER), pos=1)
 
-###################### Histogram
+######################### Histogram
 
-# Najcesce koristimo kada prikazujemo frekvencije interval/racio variajbli (dok bar-charts koristimo kod nominal/ordinal varijabli).
-
+# Useful when you have racio/interval variable(s).
 hist(LENGTH)
 hist(LENGTH, main="", xlab="Length in ms", ylab="Frequency", xlim=c(0, 2000), ylim=c(0, 100), col="grey80")
 hist(LENGTH, main="", xlab="Length in ms", ylab="Density", freq=FALSE, xlim=c(0, 2000), col="grey50")
 lines(density(LENGTH))
 
-####################### Mere centralne tendencija
+######################### Measures of central tendency
 
-# Da li se secamo sta je Mod? Medijan(a)? AS? SD?
-
-# Mod (ova nije intuitivna fukncija za racunanje).
+# Mode.
 
 which.max(table(FILLER))
 # uh 
@@ -134,47 +119,41 @@ which.max(table(FILLER))
 max(table(FILLER))
 # [1] 394
 
-# Medijan.
+# Median.
 
 median(LENGTH)
 # [1] 897
 
-# Aritmeticka sredina.
+# Mean.
 
 mean(LENGTH)
 # [1] 915.043
 
-####################### Mere disperzije
+######################### Dispersion measures
 
-# Mere CT nikada nemojte interpretirati bez nekih mera disperzije pride. Koju meru smo do sada spominjali?! Za svaki tip podataka (i svaku MCT) postoji neka odgovarajuca mera disperzije.
+# Never interpret CT measures without some dispersion measures. What measure have we mentioned so far ?! For each data type (and each MCT) there is some appropriate dispersion measure.
 
-Mean -- SD/varijansa.
-Mode -- relativna entropija (negde cete da procitate relativna frekvencija TO NIJE ISTO!).
-Median -- interkvartalni raspon.
+Mean -- SD/variance.
+Mode -- relative entropy.
+Median -- quartiles.
 
 town1 <- c(-5, -12, 5, 12, 15, 18, 22, 23, 20, 16, 8, 1)
 town2 <- c(6, 7, 8, 9, 10, 12, 16, 15, 11, 9, 8, 7)
 mean(town1)
 mean(town2)
 
-# Relativna entropija (svaka entropija se obelezava sa H).
-
-RE je jednaka 1 kada su svi nivoi neke kategorijalne varijable jednako frekventni (ZASTO?!), a 0 je kada svi imaju vrednost 1 i identican varijabilitet (nema ga). Kada je neizvesnost veca? Kada je manja?
+# Relative entropy (each entropy is marked with H).
 
 article <- c(164, 33, 103)
 perc <- article/sum(article)
 hrel <-- sum(perc*log(perc))/log(length(perc))
 hrel
 
-# Strana (120), brojate sta ce da se desi ako stavite brojeve 300, 0, 0 ... Da li postoji logaritam od nule(setimo se formulse sa strane 120).
-
-# Rang
-
-# Najjednostavnija mera disperzije kod interval/racio, ali nije dovoljna (zbog problema sa autlajerima).
+# Range.
 
 range(LENGTH)
 
-# Kvantila/kvartil.
+# Qaurtile/Quantile.
 
 a <- 1:100
 #  0%  25%  50%  75% 100% 
@@ -184,25 +163,23 @@ quantile(town2)
 #   0%   25%   50%   75%  100% 
 # 6.00  7.75  9.00 11.25 16.00 
 
-# Sto je veca razlika izmedju 1 i 4 kvartila, to je HTEROGENIJI SKUP (dakle, velika je disperzija).
+# The larger difference between 1 and 4 quarters is, the Heterogeneous group is. 
 
-# Interpretacija:
+# Interpretation:
 
 quantile(LENGTH, probs=c(0.25, 0.5, 0.75, 1))
 
 # 25%  50%  75% 100% 
 # 583  897 1242 1600 
 
-# 25% vrednosti je manje od 583 (ili jedanko).
+# SD (Standard deviation).
 
-# SD
-
-# Mera koja nam govori koliko pojedinacne opservacije odstupaju od AS, ova mera se kvadrira, onda se sumiraju sve dobijene vrednosti i na kraju se deli sa n-1 (Bassel's correction).
+# A measure that tells us how many individual observations deviate from AS, this measure is squared, then all the values obtained are summed and eventually divided by n-1 (Bassel's correction).
 
 sd(town1)
 sd(town2)
 
-# Step by step!
+# Step by step.
 
 town1
 town1-mean(town1)
@@ -211,26 +188,21 @@ sum((town1-mean(town1))^2)
 sum((town1-mean(town1))^2)/(length(town1)-1)
 sqrt(sum((town1-mean(town1))^2)/(length(town1)-1))
 
-# Iako je svi koriste i SD ima svoje mane (zavisi od AS distribucije).
+# Variance.
 
-sd(town1)
-sd(town1*10)
-
-# Koeficijent varijacije (ja volim ovu meru).
-
-# Racuna se preko SD (i predstavlja prakticno normalizovanu SD, da bismo mogli da je poredimo sa drugim setovima podataka).
+# It counts over SD (and represents normalized SD, so we can compare it with other data sets).
 
 sd(town1)/mean(town1)
 sd(town1*10)/mean(town1*10)
 
-# Summary funkcija.
+# Summary function.
 
 summary(town1)
 
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # -12.00    4.00   13.50   10.25   18.50   23.00
 
-# Boxplots (jako korisni uz summary, govore nam o disperziji podataka).
+# Boxplots (tell us about dispersion of the data).
 
 boxsum <- boxplot(town1, town2, notch=TRUE, names=c("Town1", "Town2"))
 text(1:2, c(mean(town1), mean(town2)), c("+", "+"))
