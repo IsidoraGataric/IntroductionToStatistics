@@ -1,4 +1,4 @@
-######################### Intro to R.
+######################### Introduction to R
 
 # Installing the packages (definitely, you will not need this all yet).
 install.packages("car")
