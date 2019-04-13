@@ -144,44 +144,44 @@ x
 numbers <- seq(1, 5)
 numbers
 
-# Zadatak: Kako cemo da napravimo neki vektor (npr. neka se zove isto x!) koji sadrzi sekvencijalni skup parnih brojeva od 2 do 10, i koji ce da se ponavlja 6 puta)?
+# Task: How can we create a vector (for example "x") that contains the sequential set of steady numbers from 2 to 10, and which will repeat 6 times?
 
 numbers <- seq(2, 10, 2)
 x <- rep (numbers, 6)
 x
 
-# Ucitavanje i cuvanje vektora!
+# Loading existing data set with vectors (contact me for the data sets used in this course).
 x<-scan(file=file.choose(), sep="\n")
 # Read 5 items
 
-# Alternativa (trebace nam kasnije)!
+# Alternative (you will need us later).
 dat=read.table("02_exercises_vector1.txt", sep="\n")
 
-# Zelimo tacno da vidimo sta je od podataka u matrici!
+# We want to see what the data is in the data set.
 x
 # [1] 1 2 3 4 5
 
-# Primer iz knjige: kako da napravis vektor X i da ga sacuvas u postojeci set podataka!
+# How to create vector X and to save it in the existing data set?
 
 x <- append(x, c("foxtrot", "golf"))
 cat(x, file=file.choose())
 
-# Editovanje vektora!
+# Editing the vector.
 
-# Dakle, poredjaj mi od 3.4 do 3.6 u razlici od po 0.05!
+# We aline the numbers from 3.4 to 3.6, which differ from 0.05.
 a <- seq(3.4, 3.6, 0.05)
 a
 
-# Ako zelite manje detaljne informacije!
+# Less detailed information.
 round(a, 1)
 # [1] 3.4 3.4 3.5 3.5 3.6
 
-# Ako zelite da preuzmete odredjene elemente iz vektora!
+# If you want to select certain elements from the vector.
 x <- c("a", "b", "c", "d", "e")
 x[3]
 # [1] "c"
 
-# Vezbica: hajde zajedno da protumacimo sta ovo znaci!
+# Practice No1.
 y<-3
 x[y]
 
@@ -191,7 +191,7 @@ x[z]
 z<-c(1:3)
 x[z]
 
-# Logicki izraz (necemo detaljno ovome!)!
+# Logical expression.
 x<-c(10:1)
 x
 # [1] 10  9  8  7  6  5  4  3  2  1
@@ -202,44 +202,41 @@ x==4
 x!=8
 # [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 
-# Moze ovo x==4 i na duzi nacin!
 which(x==4)
 # [1] 7
 
-# Da li je ovo nase y vektor!
+# Do not forget to check two things: is this vector (1), and how many elements this vector have?
 is.vector(y)
-
-# Koliko elemenata ima y (tj. koja je njegova duzina)!
 length(y)
 
-# Prisetimo se naseg skupa X!
+# Let's remember our data set X!
 x
 
-# Hocemo da proverimo vise nekih elemenata (WHICH to nece moci)! Koristicemo %in%
+# We want to check several elements (function WHICH will not be work here)! We will use %in%.
 c(1, 6, 11) %in% x
 # [1]  TRUE  TRUE FALSE
 
-# Hmmmm, a sta nam je ovaj FALSE, mozemo da sazanmo ako ukucamo MATCH!
+# What about this FALSE, we can find out if we type function MATCH.
 match(c(1, 6, 11), x)
 # [1] 10  5 NA
 
-# Zamena elemenata u vektoru!
+# Replacing of the elements in the vector.
 x <- 10:1
 x[x>8] <- 12
 x
 
-# Vracanje X skupa na pocetni skup (od po 1 ponavljanje svakog elementa)!
+# Return X to the initial set.
 x <- c(1, 2, 3, 2, 4, 3, 4, 5)
 unique(x)
 # [1] 1 2 3 4 5
 
-# Imamo vise vektora i zelimo da ih POMNOZIMO!
+# Multiplication of multiple vectors.
 x <- c(2, 3, 4)
 y <- c(5, 6, 7)
 x*y
 # [1] 10 18 28
 
-# Da li je R osetljiv na to sto vektori nisu jednake duzine!?
+# Is R sensitive to the fact that the vectors are not equal in length? He is, but he execute code.
 x <- c(2, 3, 4, 5, 6)
 y <- c(8, 9)
 x*y
@@ -248,16 +245,14 @@ x*y
 #Warning message:
 #In x * y : longer object length is not a multiple of shorter object length
 
-# Jeste, ali vam uradi ono sto ste mu zadali ako je to moguce!
-
-# Ako imate puno podataka i zelite da ih sortirate!
+# If you have a lot of data and you want to sort them.
 
 x <- c(6, 7, 2, 4, 9)
 y <- c(1, 3, 7)
 sort(x)
 sort(y)
 
-# Mozete da definiste da li cete u rastucem ili opadajucem redu!
+# You can define whether your data will be in decreasing or increasing order.
 
 x <- c(6, 7, 2, 4, 9)
 y <- c(1, 3, 7)
