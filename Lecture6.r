@@ -42,20 +42,19 @@ ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 
 ----
 
-# Hi vadrat (radi sa kvalitativnim podacima); podaci se prvo kategorisu, pa nakon toga dobijamo frekvencije nad kojima radimo (imamo opazene i marginalne frekvencije). Opazene su one unutar tabele, marginalne one koje dobijamo zbrajanjem frekvencija.
-# Najbolje je prikazivati ih histogramom (kada se graficki prikazuju).
+# Chi sqaure (works with qualitative data) -- data is first categorized, and then we get the frequencies over which we work (we have observed and marginal frequencies).
 
-# Uslovi za primenu (ovo cemo raditi kod svakog sledeceg testa):
+# Requirements for application:
 
-1. Racuna se samo na frekvencijama.
-2. Suma ocekivanih frekvencija mora biti jednaka sumi opazenih frekvancija. Moramo voditi racuna da nam svaki ispitanika da samo jedan odgovor (ne moze nam neki Steva biti i pusac i nepusac).
-3. Dovoljno veliki uzorak (OVO JE USTVARI NO1). 
+#1. Only count on frequencies.
+#2. The sum of the expected frequencies must be equal to the sum of the observed frequencies. We need to keep in mind that each respondent gives us only one answer.
+#3. A sufficiently large sample.
 
-# Yates-ova korekcija (kada je velika razlika izmedju opazenih i ocekivanih frekencija, pa se svaka razlika umanji za 0.5 (necemo ovome, ali cu vam napisati u prezentaciji da znate).
+# Yates correction (when there is a big difference between the observed and expected frequencies, so each difference is reduced by 0.5.
 
 ##################### Hi-kvadrat na jednom uzorku.
 
-# Matrica: hikvadrat_glasanje.txt
+# Data set: hikvadrat_glasanje.txt
 
 hi1uz <- read.delim(file.choose())
 attach(hi1uz)
@@ -69,9 +68,9 @@ test
 #data:  table(hi1uz)
 #X-squared = 8.5882, df = 2, p-value = 0.01365
 
-##################### Hi-kvadrat na dva nezavisna uzorka.
+##################### Chi-sqaure with two independent variables
 
-# Matrica: hikvadrat_glasanjepol.txt
+# Data set: hikvadrat_glasanjepol.txt
 
 hikvad2 <- read.delim(file.choose())
 attach(hikvad2)
@@ -80,12 +79,12 @@ table(hikvad2)
 test <- chisq.test(table(hikvad2)) 
 test
 
-# Isto bismo dobili i kada bismo uradili ovako ?!
+# We would also get the same if we did this!?
 
 test <- chisq.test(hikvad2$glasanje, hikvad2$pol) 
 test
 
-# Ako imamo dva nezavisna uzorka, ali imamo ekstremno mali broj ispitanika radi se FISEROV EGZAKTNI TEST (kao ekvivalent hi-kvadratu, ali za male uzorke)!
+# If we have two independent samples, but we have an extremely small number of respondents, the Fisher exact test (like the chi-square, but for small samples) is needed.
 
 fisher.test(table(hikvad2))
 #        Fisher's Exact Test for Count Data
@@ -94,13 +93,13 @@ fisher.test(table(hikvad2))
 #p-value = 0.07683
 #alternative hypothesis: two.sided
 
-##################### Hi-kvadrat na zavisne uzorke.
+##################### Chi-square for dependent samples
 
-# Da li razumemo razliku izmedju zavisnih i nezavisnih uzoraka?! Primer zavisnog uzorka: imamo 1 grupu studenata koji polazu dva testa (test 1 - sintaksa; test 2 - morfologija).
+# Do you know what is difference between dependent and indepnendent sample?
 
-# Ovaj t-test se zove i McNemar-ov test.
+# McNemar test.
 
-# Matrica: hikvadarat_ponovljena.txt
+# Data set: hikvadarat_ponovljena.txt
 
 ponovo <- read.delim(file.choose())
 attach(ponovo)
