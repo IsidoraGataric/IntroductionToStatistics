@@ -1,4 +1,4 @@
-#################### Intro to R.
+######################### Intro to R.
 
 # Installing the packages (definitely, you will not need this all yet).
 install.packages("car")
@@ -18,7 +18,7 @@ install.packages("corpora")
 
 # Repeat the entire code from the previous lecture (Lecture2.r), it is very closely related to this one.
 
-#################### Factors
+######################### Factors
 
 # Creating vector and factor (from this vector).
 
@@ -100,7 +100,7 @@ x
 # [1] long     intermed short    short    short    short   
 # Levels: long intermed short supershort
 
-########## Data Frames
+######################### Data Frames
 
 # Generating data frames.
 
