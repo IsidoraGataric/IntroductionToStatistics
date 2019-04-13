@@ -1,4 +1,4 @@
-############## Deskriptivna statistika
+######################### Descriptive statistics
 
 # Ucitavanje paketa (nije neophodno, ali ako se zapuca negde).
 
