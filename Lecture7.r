@@ -1,10 +1,8 @@
-######### Ponavljanje prethodnog gradiva.
+###################### Testing differences between groups
 
-#################### TESTIRANJE RAZLIKA IZMEDJU GRUPA
+# Again, we have division into parametric and nonparametric tests.
 
-# Opet imamo podelu na parametrijske i neparametrijske.
-
-################# T-TEST
+###################### T-TEST
 
 # Uslovi za primenu t-testa:
 1. Normalnost ditribucije.
@@ -71,7 +69,7 @@ t.test(RT1,RT2,paired=TRUE)
 #mean of the differences 
 #                  28.75 
 
-################ Neparametrijski ekvivalenti
+###################### Neparametrijski ekvivalenti
 
 # Za jedan uzorak nema smisla (setimo se hi-kvadrata).
 
@@ -99,7 +97,7 @@ wilcox.test(Likert1,Likert2,paired=TRUE)
 #data:  Likert1 and Likert2
 #V = 384, p-value = 0.7276
 
-############################### ANOVA
+###################### ANOVA
 
 # Ista pravila kao i kod t-testa, s tim sto NV mora imati dve ili vise grupa (obavezno, veci uzorak!).
 
@@ -150,9 +148,4 @@ summary(primer4)
 
 TukeyHSD(primer4)
 
-############## SLEDECI CAS CEMO RADITI MANOVU, OVO MORA DA SE NAUCI DA BI SE RAZUMELA MANOVA! Takodje, nastavicemo pricu o post.hocu kada se nauci sve ovo.
-
-### Neparametrijski (nastavljno sledece nedelje).
-
-# Kruskal–Wallis (one way).
-# Friedman test (ponovljena merenja).
+# Note: the continuation of this lesson is in the code for Lecture 8.
