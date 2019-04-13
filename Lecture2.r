@@ -1,4 +1,4 @@
-##################### Intro to R!
+######################### Introduction to R
 
 # Installing the packages (definitely, you will not need this all yet).
 install.packages("car")
@@ -29,7 +29,7 @@ mean(a)
 + 3
 #[1] -1
 
-##################### Functions and arguments.
+######################### Functions and arguments.
 
 sqrt(x=5)
 # [1] 2.236068
@@ -71,7 +71,7 @@ sample(some.data, size=3)
 
 # If everything goes wrong and R stops working, just type q () and close R and everything you have done so far.
 
-##################### Vectors
+######################### Vectors
 
 # Generating vectors.
 
