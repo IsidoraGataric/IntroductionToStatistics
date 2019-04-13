@@ -1,4 +1,4 @@
-######### Intro to R!
+##################### Intro to R!
 
 # Installing the packages (definitely, you will not need this all yet).
 install.packages("car")
@@ -56,32 +56,30 @@ a <- a + 2
 rm(a) # Delete this item (e.g. "a").
 rm(list=ls(all=TRUE)) # Delete all data from the memory.
 
-# Pravimo neki set podataka "some.data" u kojem ce da nam se nalaze svi brojevi od 1 do 10.
+# We make some data set "some.data", in which we will write numbers from 1 to 10.
 some.data <- c(1:10)
 
-# Medjutim, mi zelimo da uzorkujemo samo 5 elemenata sa podjednakom verovatnocom i sa replace=TRUE!
+# However, we want to sample only 5 elements with equal probability (replace = TRUE)!
 sample(x=some.data, size=5, replace=TRUE, prob=NULL)
 # [1] 2 4 9 1 4
 
-# Kako da skratimo ovu funkciju (pogledati u knjizi)!
+# Some variations on this topic.
 
-some.data
 sample(some.data)
-
-# Da li pravimo razliku izmedju ove dve linije koda? Koja je razlika?
-
 sample(some.data, size=7)
 sample(some.data, size=3)
 
-# Ako vam sve krene po zlu i R nece da radi, samo ukucate q() i zatvori vam se R i sve sto ste do sada uradili.
+# If everything goes wrong and R stops working, just type q () and close R and everything you have done so far.
 
-########## Vectors
+##################### Vectors
 
-# Generisanje vektora
+# Generating vectors.
 
 a <-sqrt(5)
 a
 # [1] 2.236068
+
+# Do we make the difference between these code lines?
 
 is.vector(a)
 # [1] TRUE
@@ -89,61 +87,60 @@ is.vector(a)
 is.factor(a)
 # [1] FALSE
 
-# Da li pravimo razliku?
-
+# Length.
 length(a)
 # 1
 
-# Zasto 1? Da li to svi razumemo? Sada cemo da kreiramo vektor sa vise elemenata.
+# Now we will make a set of data with multiple elements?
 
 numbers <- c(1, 2, 3)
 numbers
 # [1] 1 2 3
 
-# Primer kada imate numbers1 i numbers2, a zelite da ocitate podatke i iz jedne i iz druge! (Ovo je malo komplikovanije u knjizi objasnjeno!
+# Loading all elements from two different data sets (numbers1, and numbers2).
 
 numbers1 <- c(1, 2, 3); numbers2 <- c(4, 5, 6)
 numbers <- c(numbers1, numbers2)
 numbers
 
-# Veoma slicna je funkcija APPEND (slicna funkciji C)!
+# A very similar function is APPEND (similar to C).
 
 numbers <- append(numbers1, numbers2)
 numbers
 
-# Primer kada se cesto koristi!
+# Example.
 evenmore <- c(7, 8)
 numbers <- append(numbers, evenmore)
 numbers
 
-# Data type (veoma vazno kada obradjujemo podatke!). Ukoliko zelimo da sabiramo neke elemente moramo voditi da oni budu prepoznati kao numericki karakteri, ako zelimo sa neki spisak da dobijemo onda mozemo da radimo i sa stringovima tekstovnim.
+# Type of your data? (very important when processing data!). You'll work with both, textual and numerical data.
 
-# Primer 1 (numericki string): Zelimo da nam izbaci samo numerike od 1 do 3!
+# Example 1 (numeric): We want to print only numbers 1 to 3.
 numbers.num <- c(1, 2, 3) 
 str(numbers.num)
-# numbers.num[1:3] (moze i bez ovog dela!)
+# numbers.num[1:3] (optional)
 # num [1:3] 1 2 3
 
-# Primer 2 (tekstovni string): Zelimo da nam izbaci samo numerike od 1 do 3!
+# Example 2 (textual string): We want to print numbers from 4 to 6.
 numbers.char <- c("four", "five", "six") 
 nums.and.chars <- c(numbers.num, numbers.char)
 str(nums.and.chars)
-# nums.and.chars[1:6] (moze i bez ovog dela!)
+# nums.and.chars[1:6] (optional)
 # [1] "1"    "2"    "3"    "four" "five" "six" 
 
-# Kada zelimo da ponovimo elemente naseg skupa po nekoliko puta (funkcija REP)
+# When we want to repeat the elements of our set several times (REP function).
 numbers <- c(1, 2, 3)
 x <- rep (numbers, 4)
 x
 # [1] 1 2 3 1 2 3 1 2 3 1 2 3
 
-# Ako ne zelimo ovako sekvencijalno da nam se zbir ponovi, nego prvo da nam navede sve 1, pa sve 2, pa sve 3 ... Onda dodajemo each = 4!
+# If we do not want sequentially repeat .. then we add "each"!
 numbers <- c(1, 2, 3)
 x <- rep (numbers, each=4)
 x
 # [1] 1 1 1 1 2 2 2 2 3 3 3 3
 
-# Sekvencijalno redjanje brojeva moze i preko funckije SEQ! Probajte da promenite broj 5!
+# Sequential ordering of numbers can also be done via the function SEQ.
 numbers <- seq(1, 5)
 numbers
 
