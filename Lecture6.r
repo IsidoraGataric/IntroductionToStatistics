@@ -1,24 +1,24 @@
 ##################### Distribution testing and chi-square
 
-# Zasto nam je vazno da testiramo normalnost distribucije?
+# Why is it important for us to test the distribution normality?
 
-# Dva testa upamtite: Wilk-Shapiro & Kolmogorov-Smirnov! Jedan testira zakosenost, drugi zasiljenost.
+# Remember two tests: Wilk-Shapiro & Kolmogorov-Smirnov.
 
-# Da probamo na ovim podacim iz domaceg ... statling.txt!
+# Data for test: statling.txt
 
-# Note: Kada budete radili sa RTs u GAMMs/GLMER etc. imate jednu funkciju powerTransform(matrica$RT) koja ce vam reci da li vas RT treba da bude transformisan log transformacijom ili invers transformacijom (za ovo trebaju posebni paketi, to cemo kod regresije da pricamo).
+# Note: When you start to GAMMs/GLMER etc. you have one function "powerTransform" which tells you whether RTs needs to be transformed by log transformation or by inversion transformation.
 
 matrica <- read.delim(file.choose())
 attach(matrica)
 
-# Prvo cemo da uradimo W-S test.
+#First test: W-S test.
 shapiro.test(RT)
 #        Shapiro-Wilk normality test
 #
 #data:  RT
 #W = 0.90328, p-value = 0.001375
 
-# Prvo cemo da uradimo K-S test.
+# Second test: K-S test.
 ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 #        One-sample Kolmogorov-Smirnov test
 #
@@ -26,19 +26,19 @@ ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 #D = 0.16668, p-value = 0.1546
 #alternative hypothesis: two-sided
 
-# jitter funckija omogucava randomizaciju tog numerickog vektora (odnosno, varijable).
+# The function "jitter" allows randomization of this numerical vector.
 
-# Cesto cete citati o necemu sto se zove Kramerov V (ili Kramerov Fi), to je mera koja nam govori o tome koliko jedna distribucija odskace od normalne (dakle, poredi dve distribucije). Ova mera u je osnovi dva prethodna testa.
+# Note: Cramér's V is a measure of association between two nominal variables, giving a value between 0 and +1 (inclusive). This measure is related to the Chi-square.
 
 ##################### Chi-square and non-parametric test
 
-# Pre nego sto krenemo samo da objasnimo razliku izmedju parametrijskih i neparametrijskih testova:
+# Some differences between parametric and non-parametric tests:
 
-1. NP ne zahtevaju normalnu raspodelu.
-2. Koriste se za nominalni i ordinalni nivo merenja (moze i na vise niveo (setite se price o RTs i njihovoj distribuciji!), ali to nema smisla, zato transformisemo podatke odredjenim matematickim transformacijama).
-3. Rade sa kvalitativnim podacima.
-4. Imaju vecu robustnost ("povrede usloga").
-5. Mana velika: veoma slabi (1/3 jacine u odnosu na parametrijske testove).
+#1. NPs do not require normal distribution.
+#2. They (NPs) are used for the nominal and the ordinated variables.
+#3. Works with qualitative data.
+#4. They have more robustness ("injuries of the condition").
+#5. NPS defect: very weak tests (1/3 weaker in comparision to parametric tests).
 
 ----
 
