@@ -41,8 +41,6 @@ cut(1:9, 3)
 # [6] (3.67,6.33]  (6.33,9.01]  (6.33,9.01]  (6.33,9.01] 
 # Levels: (0.992,3.67] (3.67,6.33] (6.33,9.01]
 
-# Let's remember it as a factor.
-
 x <- cut(1:9, 3)
 x
 y <- factor(x)
@@ -56,15 +54,15 @@ a
 # [1] alpha  charly bravo
 # Levels: alpha bravo charly
 
-# Cuvanje ovog faktora u neki vec postojeci .txt fajl (pogledati .txt nakon ovoga).
+# Save this factor in some existing .txt file.
 cat(a, sep="\n", file=file.choose())
 
-# Zasto nam R daje neke brojeve 1, 2, 3?! Zato sto on samo prepoznaje nivoe nekog faktora (nismo mu definisali da nam je to neki vektor sa tekstualnim podacima).
+# Why does R give us numbers 1, 2, 3 ?! Because he only recognizes the levels of some factor (we did not define him as a vector with textual data).
 cat(as.vector(a), sep="\n", file=file.choose())
 
 # Editing factors
 
-# Pravljenje faktora (moze i bez ovoga 1:3!)
+# Defining and printing vectors.
 
 x <- factor(rep(c("long", "intmed", "short"), 1:3))
 x
@@ -76,51 +74,35 @@ x
 # [1] long   intmed intmed short  short  short 
 # Levels: short intmed long
 
-# E sada, ako zelimo da nam ovo bude poredjano od poslednjeg nivoa (treceg) do pocetnog (prvog).
+# If we want this to be sorted from the last level (third) to the first (first).
 
 x <- factor(x, levels=levels(x)[3:1])
 x
 # [1] long   intmed intmed short  short  short 
 # Levels: long intmed short
 
-# Promena imena nekog nivoa. 
+# Rename of the existing level.
 levels(x)[2] <- "intermed"
 x
 # [1] long     intermed intermed short    short    short   
 # Levels: long intermed short
 
-# Promena jednog odredjenog elementa, ne celog nivoa.
+# Changing one particular element from the data set.
 x[3] <- "short"
 x
 # [1] long     intermed short    short    short    short   
 # Levels: long intermed short
 
-# Ako zelimo da ubacimo neki novi faktora.
+# If we want to insert some new factor.
 x <- factor(rep(c("long", "intermed", "short"), c(1, 1, 4)), levels=c("long", "intermed", "short"))
 x <- factor(x, levels=c(levels(x), "supershort"))
 x
 # [1] long     intermed short    short    short    short   
 # Levels: long intermed short supershort
 
-# Promena jednog odredjenog elementa, ne celog nivoa.
-x[6] <- "supershort"
-# [1] long       intermed   short      short      short      supershort
-# Levels: long intermed short supershort
-
-# Treba da se izbrise neki level pre daljih koraka, to radimo ovako:
-x[6] <- "short"
-x <- factor(x)
-x
-# [1] long     intermed short    short    short    short   
-# Levels: long intermed short
-
-# Prikazi mi numericki level tog faktora (setimo se onoga 1:3)!
-as.numeric(x)
-# [1] 1 2 3 3 3 3
-
 ########## Data Frames
 
-# Generating data frames (sastoji se od raznih vektora i faktora).
+# Generating data frames.
 
 rm(list=ls(all=TRUE))
 POS <- c("adj", "adv", "n", "conj", "prep")
@@ -128,7 +110,7 @@ TOKENFREQ <- c(421, 337, 1411, 458, 455)
 TYPEFREQ <- c(271, 103, 735, 18, 37)
 CLASS <- c("open", "open", "open", "closed", "closed")
 
-# Kreiramo nas prvi data frame.
+# Creating of data frame.
 
 x <- data.frame(POS, TOKENFREQ, TYPEFREQ, CLASS)
 x
@@ -139,7 +121,7 @@ x
 # 4 conj       458       18 closed
 # 5 prep       455       37 closed
 
-# Ovo vam je korisnije, jer vam daje mogucnost da vidite tipove podataka.
+# This is very useful, because it gives you the ability to see type of data.
 str(x)
 # 'data.frame':   5 obs. of  4 variables:
 #  $ POS      : Factor w/ 5 levels "adj","adv","conj",..: 1 2 4 3 5
@@ -149,16 +131,16 @@ str(x)
 
 # Loading and saving data frames.
 
-# Ucitavanje vec postojecih data frameova (malo duze objasnjenje u knjizi, ovde cemo samo jedan primer).
+# Loading already existing data frames (a bit longer explanation in the book, we will only present here one example).
 
 a2 <- read.table(file.choose(), header=TRUE, sep="\t", quote="", comment.char="", row.names=1)
 a2 
 str(a2)
 
-# Upisivanje podataka u postojece data frames.
+# Insert data into existing data frames.
 write.table(a2, file.choose(), quote=FALSE, sep="\t", col.names=NA)
 
-# Editing data frames (ucitavanje matrice sa ovim DELIM skracuje taj put).
+# Editing data frames.
 rm(list=ls(all=TRUE))
 a <- read.delim(file.choose())
 a
@@ -170,10 +152,10 @@ a
 # 4 conj       458       18 closed
 # 5 prep       455       37 closed
 
-# Prikazi mi samo kolonu TOKENFREQ!
+# Show me the column TOKENFREQ!
 a$TOKENFREQ
 
-# Pozovanje samo odredjenih slucajeva, redova i kolona.
+# Print some specific cases, rows, and columns.
 
 a[2,3]
 # [1] 103
@@ -190,28 +172,28 @@ a[2:3, 3:4]
 #2      103  open
 #3      735  open
 
-# Malo kompleksnije funkcije i argumenti, sa WHICH.
+# Function WHICH.
 
 which(a[,2]>450)
 #[1] 3 4 5
 
-# Pristupi koloni nekoj odredjenoj (ps. Na strani 90 (ali i na 92!) u Grisu imate gresku u kucanju, CLASS mora uvek velikim).
+# Access the column CLASS.
 attach(a)
 CLASS
 # [1] open   open   open   closed closed
 # Levels: closed open
 
-# Promena vrednosti u okviru CLASS.
+# Changing values within CLASS.
 CLASS[4] <- NA;
 CLASS
 
-#Prikazi mi a.
+# Print me "a" data set.
 a
 
-# Vrati CLASS NA na pocetnu vrednost.
+# Return CLASS to the starting values.
 CLASS[4] <- "closed"
 
-# Rad na samo jednom delu data frame.
+# Work on only one part of the data frame.
 b <- a[CLASS=="open",]
 b
 #  POS TOKENFREQ TYPEFREQ CLASS
@@ -219,7 +201,7 @@ b
 #2 adv       337      103  open
 #3   n      1411      735  open
 
-# Ili jos bolje (preporucujem!) napravite subset.
+# Or even better (I recommend!!!!) create a subset, and you can do what you want on it.
 b <-subset(a, CLASS=="open")
 b
 #  POS TOKENFREQ TYPEFREQ CLASS
@@ -227,14 +209,14 @@ b
 #2 adv       337      103  open
 #3   n      1411      735  open
 
-# Ista fora, malo kompleksniji primer.
+# Similar as previously described.
 b <-subset(a, POS %in% c("adj", "adv"))
 b
 #  POS TOKENFREQ TYPEFREQ CLASS
 #1 adj       421      271  open
 #2 adv       337      103  open
 
-# Sortirao je sve te slucajeve po CLASS (ovo nije vazno uopste, nego pratimo njegovu knjigu).
+# He sorted all these cases by CLASS (this is not important).
 a[order(CLASS, -TOKENFREQ),]
 #    POS TOKENFREQ TYPEFREQ  CLASS
 # 4 conj       458       18 closed
@@ -243,7 +225,7 @@ a[order(CLASS, -TOKENFREQ),]
 # 1  adj       421      271   open
 # 2  adv       337      103   open
 
-# Kada se sortira po vise nekih kriterijuma.
+# When sorted by several criteria.
 order.index <- order(-rank(CLASS), -rank(POS))
 a[order.index, ]
 #   POS TOKENFREQ TYPEFREQ  CLASS
