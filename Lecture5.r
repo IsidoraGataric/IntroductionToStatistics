@@ -98,34 +98,24 @@ boxplot(LENGTH~GENRE, notch=TRUE, ylim=c(0, 1600))
 
 ########################## Interaction plots
 
-# Topla preporuka --- interkaciju uvek posmatrati prvo preko grafika (mnogo je intuitivnija interpretacija!).
-
-# Sta je interakcija dve varijable?! 
-
-# Najjednostavnija definicija: Interaction effects occur when the effect of one variable depends on the value of another variable.
-
-# Sta znaci ako vam ja kazem da su frekvencija reci i duzina u interakciji?!
-
 interaction.plot(FILLER, SEX, LENGTH)
 grid()
 
 interaction.plot(SEX, FILLER, LENGTH)
 grid()
 
-# Prilikom interpretacije voditi racuna o brojkama i graficima.
-
 interaction.plot(SEX, FILLER, LENGTH, ylim=c(0, 1000))
 interaction.plot(FILLER, SEX, LENGTH, ylim=c(0, 1000))
 interaction.plot(SEX, FILLER, LENGTH, ylim=range(LENGTH))
 interaction.plot(SEX, FILLER, LENGTH, ylim=range(LENGTH))
 
-########################## Koeficijenti korelacije i linearna regresija (ovo cu redukovati, posto ovo vec spada u interferencijalnu statistiku)
+########################## Correlation coefficients
 
-# Obe varijable interval/racio nivo merenja.
+# Both variables are interval level of measure. 
 
 rm(list=ls(all=TRUE))
 
-# Ucitavamo novi set podata
+# Loading new data set.
 
 ReactTime <- read.delim(file.choose())
 str(ReactTime)
@@ -134,22 +124,12 @@ attach(ReactTime)
 plot(MS_LEARNER~LENGTH, xlim=c(0, 15), ylim=c(0, 300), xlab="Word length in letters", ylab="Reaction time of learningers in ms")
 grid()
 
-# Setimo se price o korelacijama, kakva je ovo korelacija POZIVINA ili NEGATIVNA?!
-
-# Postoji vise korelacija! Mi cemo se ovde baviti Pirsonovom produkt-moment korelacijom (cuveno, Pirsonovo r).
-
-# Koja vam je mera ovde vazna?! Kovarijansa?! Kako i zasto?!
-
 covariance <- sum((LENGTH-mean(LENGTH))*(MS_LEARNER-mean(MS_LEARNER)))/(length(MS_LEARNER)/1)
 covariance <- cov(LENGTH, MS_LEARNER)
 covariance
 # [1] 79.28947
 
-# Medjutim, ova mera vam nije bas interpretabilna.
+# Pay attention on method, we calculated here Pearson correlation, but you have Spearman Rho, or Kendall Tau? We'll talk about it later.
 
 cor(MS_LEARNER, LENGTH, method="pearson")
 # [1] 0.9337171
-
-########################## LINEARNA REGRESIJA (jako lose objasnjenja u ovom delu knjige, preskocicemo za sada, sledece nedelje se radi bas lekcija KORELACIJA i LINEARNA REGRESIJA).
-
-# Od 147 do 156 nemojte citati, jako je lose objasnjeno u knjizi.
