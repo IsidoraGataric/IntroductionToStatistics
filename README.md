@@ -1,6 +1,6 @@
 ########## **Course: "Introduction to Statistics in R"** ##########
 
-** Course schedule **:
+***Course schedule***:
 
 | Lecture 1 : *Statistics for Linguistics in R: An introduction* | 
 | Lecture 2 : *Fundamentals of R: Part I* |
