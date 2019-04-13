@@ -1,4 +1,4 @@
-######### R as a calculator!
+######################### R as a calculator (short introduction)
 
 1 + 2
 #[1] 3
