@@ -34,16 +34,16 @@ mean(a)
 sqrt(x=5)
 # [1] 2.236068
 
-# On je vasu funkciju izvrsio, ali je sacuvao nije neki zaseban element (nazovimo to tako!). Ovako cemo cuvati i neke svoje matrice ili subsetove!
+# Data storage. More precisely, storage of the sqrt function above the argument k=5 as an "a".
 a <- sqrt(x=5)
 print(a)
 # [1] 2.236068
 
-# Ili samo ...
+# ... you can do it like this ...
 a
 # [1] 2.236068
 
-# Upisivanje novih vrednosti u vec postojeci data structure!
+# Entering new values into an already existing data set.
 a <- sqrt(x=9)
 print(a)
 # 3
@@ -51,10 +51,10 @@ print(a)
 a <- a + 2
 # [1] 5
 
-# Ako zelimo sve ovo da obrisemo i da pisemo nesto novo!
+# Deleting data.
 
-rm(a) #Obrisi mi taj element (matricu ili bilo stra drugo)
-rm(list=ls(all=TRUE)) #izbrisi sve podatke iz memorije (ovo nemojte koristiti, ako bas ne morate da sakrijete nesto :-D).
+rm(a) # Delete this item (e.g. "a").
+rm(list=ls(all=TRUE)) # Delete all data from the memory.
 
 # Pravimo neki set podataka "some.data" u kojem ce da nam se nalaze svi brojevi od 1 do 10.
 some.data <- c(1:10)
@@ -266,46 +266,4 @@ x <- c(6, 7, 2, 4, 9)
 y <- c(1, 3, 7)
 sort(x, decreasing=TRUE)
 sort(y, decreasing=FALSE)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
