@@ -1,59 +1,4 @@
-# Reminder: ################# T-TEST
-
-# Uslovi za primenu t-testa:
-1. Normalnost ditribucije.
-2. Dovoljno veliki uzorak.
-3. Homogenost varijansi.
-4. Nema autlajera.
-
-############################### ANOVA & ANCOVA
-
-# Ista pravila kao i kod t-testa, s tim sto NV mora imati dve ili vise grupa (obavezno, veci uzorak!).
-
-# One-way ANOVA.
-
-anova <- read.delim(file.choose())
-attach(anova)
-anova
-
-primer1 <- aov(RT ~ SuffixAmbiguity, data=anova)
-summary(primer1)
-
-#                Df Sum Sq Mean Sq F value Pr(>F)
-#SuffixAmbiguity  2   2039    1019   0.062   0.94
-#Residuals       41 679461   16572
-
-# ANCOVA (odavde vise nije ovako lako, morate biti malo mastoviti).
-
-# Bez interakcije (nju cemo kod dole testirati, kod Two-way).
-primer2 <- aov(RT ~ SuffixAmbiguity + SuffixFrequency, data=anova)
-summary(primer2)
-
-#                Df Sum Sq Mean Sq F value Pr(>F)
-#SuffixAmbiguity  2   2039    1019   0.061  0.941
-#SuffixFrequency  1  14171   14171   0.852  0.362
-#Residuals       40 665290   16632  
-
-# Two-way ANOVA (sa interakcijom).
-primer3 <- aov(RT ~ SuffixAmbiguity*SuffixFrequency, data=anova)
-summary(primer3)
-
-#                                Df Sum Sq Mean Sq F value Pr(>F)
-#SuffixAmbiguity                  2   2039    1019   0.059  0.943
-#SuffixFrequency                  1  14171   14171   0.823  0.370
-#SuffixAmbiguity:SuffixFrequency  2  10604    5302   0.308  0.737
-#Residuals                       38 654686   17229  
-
-# Post-hoc (topla preporuka TukeyHSD, ali ne preorpucujem da radite ovo sami dok ne naucite sve dobro)
-
-posthoc <- read.delim(file.choose())
-attach(posthoc)
-posthoc
-
-primer4 <- aov(RT ~ SuffixAmbiguity*Freq, data=anova)
-summary(primer4)
-
-TukeyHSD(primer4)
+# Note: Continuation of the previous Lecture 7.
 
 ############################### MANOVA
 
@@ -61,7 +6,7 @@ manova <- read.delim(file.choose())
 attach(manova)
 manova
 
-# Prvo napravimo jedan vektor u kom nam se nalaze sve zavisne varijable zajedno.
+# We create a vector in which all dependent variables are found together (Y).
 
 Y <- cbind(Rtword, Rtsentence)
 fit <- manova(Y ~ SuffixAmbiguity*SuffixFrequency, data=manova)
@@ -75,15 +20,15 @@ summary(fit, test="Wilks")
 #---
 #Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-# Imate jos i "Pillai", "Hotelling-Lawley", and "Roy", ali preporucujem Wilks-a za manje uzorke kao sto je nas (jezicki). 
+# You also have tests: "Pillai", "Hotelling-Lawley", and "Roy", but I recommend Wilks for smaller samples like the one we have in Social Sciences.
 
-### Neparametrijski ekvivalenti.
+############################### Non-parametric equivalents
 
 nonparamanova <- read.delim(file.choose())
 attach(nonparamanova)
 nonparamanova
 
-# Kruskal–Wallis (anova; neponovljena merenja).
+############################### Kruskal-Wallis (ANOVA; non-paired samples)
 
 kruskal.test(Rtword ~ SuffixAmbiguity, data = nonparamanova) 
 
@@ -92,17 +37,15 @@ kruskal.test(Rtword ~ SuffixAmbiguity, data = nonparamanova)
 #data:  Rtword by SuffixAmbiguity
 #Kruskal-Wallis chi-squared = 11.255, df = 2, p-value = 0.003598
 
-# Dugujem vam Fridmanov test za ponovljena merenja, ali nisam uspela da sredim kod, nije hteo da mi proradi, pa cu vam nakonadno poslati to (kada budem slala celu skriptu).
+# Note: You have Friedman test for paired samples, but code does not work in this version of R, I will sent to you code for this version.
 
-############################### KORELACIJE
+############################### CORRELATIONS
 
-# Kada koristimo korelacije? Kada zelimo da utvrdimo da li postoji povezanost izmedju dve (i vise) varijabli.
+# When do we use correlation? When we want to investigate if there is a relation between two (and more) variables.
 
-# Radicemo dve korelacije koje se najcesce koriste: Pirsonova produkt moment korelacija (r) i Spirmanov koeficijent rang korelacije Ro. Prva se koristi kada su nam obe varijable interval/racio nivoa merenja, druga kada je jedna od varijabli rang nivoa.
+# We will learn about two correlations: the Pearson product moment correlation (Pearson's r), and the Spearman rank correlation coefficient Rho (Spearman's Rho). The first one is used when both variables are the interval/ratios of the measurement levels, and the other one when one of the variables is rank, and the other one is interval/ratio.
 
-# Reminder za Isidoru: prica o vaznosti normalne distribucije kod Pirson produkt moment korelacije.
-
-# Pirsonova produkt moment korelacija (r)
+############################### Pearsons product moment correlation (Pearson's r)
 
 cor.test(SuffixFrequency, SuffixProductivity, method="pearson")
 
@@ -115,7 +58,7 @@ cor.test(SuffixFrequency, SuffixProductivity, method="pearson")
 #      cor 
 #0.9390806 
 
-# Spirmanov koeficijent rang korelacije Ro
+############################### Spearman rank correlation coefficient Rho (Spearman's Rho)
 
 cor.test(NounLength, SuffixProductivity, method="spearman")
 
@@ -132,7 +75,7 @@ cor.test(NounLength, SuffixProductivity, method="spearman")
 #In cor.test.default(NounLength, SuffixProductivity, method = "spearman") :
 #  Cannot compute exact p-value with ties
 
-# Nije lose da znate da postoji i Kendal Tau koeficijent korelacije. Korisitmo ga kada imamo nize nivoe merenja od interval/racio; mnogo fleksibilnija po pitanju normalnosti raspodele.
+# Note: You also have Kendall rank correlation coefficient (Kendall's tau).
 
 cor.test(SuffixAmbiguity, SuffixProductivity, method="kendall")
 
@@ -149,7 +92,7 @@ cor.test(NounLength, SuffixProductivity, method="kendall")
 #        tau 
 #0.006070492 
 
-############################### REGRESIJA
+############################### REGRESSION
 
 regresija <- read.delim(file.choose())
 attach(regresija)
@@ -157,9 +100,9 @@ regresija
 
 # Simple vs. Multiple Regression.
 
-# Linearna vs. Logisticka.
+# Linear vs. Logistic Regression.
 
-# Linearna (Simple + Multiple).
+# Linear (Simple + Multiple).
 
 reg1 <- lm(RT ~ SuffixFrequency, data=regresija)
 print(reg1)
@@ -170,7 +113,7 @@ summary(reg1)
 #(Intercept)     6.480e+02  2.401e+01  26.991   <2e-16 ***
 #SuffixFrequency 3.684e-03  3.860e-03   0.955    0.345  
 
-# Reziduali: treba da bude sto manje, greska.
+# Residuals: should be as less as possible, residuals are errors.
 
 reg2 <- lm(RT ~ SuffixFrequency + SuffixProductivity, data=regresija)
 print(reg2)
@@ -182,7 +125,7 @@ summary(reg2)
 #SuffixFrequency      0.00668    0.01136   0.588     0.56    
 #SuffixProductivity  -0.03698    0.13162  -0.281     0.78    
 
-# Logisticka (ista fora, odmah cemo Multiple); negde cete cuti i LOGIT regression / LOGIT-PROBIT modeli etc.
+# Logistics regression (dependent variable is binary).
 
 reg3 <- glm(Accuracy ~ SuffixFrequency + SuffixProductivity, family=binomial, data=regresija)
 print(reg3)
@@ -194,4 +137,4 @@ summary(reg3)
 #SuffixFrequency    -0.0002775  0.0005595  -0.496    0.620
 #SuffixProductivity  0.0152797  0.0162529   0.940    0.347
 
-PROCITATI interpretaciju rezultata: https://datascienceplus.com/perform-logistic-regression-in-r/
+# PLEASE read a bit about interpretation of Logistics Regression results: https://datascienceplus.com/perform-logistic-regression-in-r/
