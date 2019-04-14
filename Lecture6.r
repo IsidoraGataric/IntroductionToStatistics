@@ -34,10 +34,10 @@ ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 
 # Some differences between parametric and non-parametric tests:
 
-#1. NPs do not require normal distribution.
-#2. They (NPs) are used for the nominal and the ordinated variables.
-#3. Works with qualitative data.
-#4. They have more robustness ("injuries of the condition").
+#1. NPs do not require normal distribution;
+#2. They (NPs) are used for the nominal and the ordinated variables;
+#3. Works with qualitative data;
+#4. They have more robustness ("injuries of the condition");
 #5. NPS defect: very weak tests (1/3 weaker in comparision to parametric tests).
 
 ----
@@ -46,8 +46,8 @@ ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 
 # Requirements for application:
 
-#1. Only count on frequencies.
-#2. The sum of the expected frequencies must be equal to the sum of the observed frequencies. We need to keep in mind that each respondent gives us only one answer.
+#1. Only count on frequencies;
+#2. The sum of the expected frequencies must be equal to the sum of the observed frequencies. We need to keep in mind that each respondent gives us only one answer;
 #3. A sufficiently large sample.
 
 # Yates correction (when there is a big difference between the observed and expected frequencies, so each difference is reduced by 0.5.
