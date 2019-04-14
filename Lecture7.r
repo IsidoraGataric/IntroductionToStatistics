@@ -4,23 +4,21 @@
 
 ###################### T-TEST
 
-# Uslovi za primenu t-testa:
-1. Normalnost ditribucije.
-2. Dovoljno veliki uzorak.
-3. Homogenost varijansi.
-4. Nema autlajera.
+# Requirements for applying t-test:
+#1. Normality of the ditribution (Gaussian distribution);
+#2. A sufficiently large sample;
+#3. Homogeneity of variance;
+#4. Without outliers.
 
-# Da li se secate koji su nam uslovi za primenu neparametrijskih testova?
+# T-test is also distinguished for dependent and independent samples, we test the difference between the two groups.
 
-# T-test takodje razlikujemo za zavisne i nezavisne uzorke, testiramo razliku izmedju dve grupe.
-
-# Ucitajmo matricu.
+# Data set loading.
 
 matrica <- read.delim(file.choose())
 attach(matrica)
 matrica
 
-# T-test za dva nezavisna uzorka (ovo je malo apstraktan primer, ali zamislite da je ova varijabla SuffixAmbiguity recimo pol).
+###################### T-test for two independent samples
 
 t.test(RT~SuffixAmbiguity)
 
@@ -33,11 +31,11 @@ t.test(RT~SuffixAmbiguity)
 #  mean in group ambiguous mean in group unambiguous 
 #                 674.6818                  649.4091
 
-# Interpretacija: Velicina t-testa (0.66), df (35.08), p (0.51), i nakon toga na osnovu Mean-ova vidite koja grupa je brza, koja sporija (iako nema statisticke razlike, ali isto bismo gledali i da je ima).
+# Interpretation: t-test value (0.66), df (35.08), p (0.51), and also you have to look to Mean for each group to see which Mean is higher. 
 
-# T-test za jedan uzorak (jako retko se koristi, ali ako naletite da znate!).
+###################### T-test for one sample (very rarely used, but if you find that you know!)
 
-# Koristite samo 1 varijablu (numericku), i recimo imate pretpostavku da iz prethodnog rada da je prosecno vreme citanje derivacionih imenica 500 ms (ovo je jako hipoteticko, ali radi lakseg objasnjenja). I sta sada? Treba vam neka razlika, nemate grupe, imate eksperiment i jednu varijablu?
+# Analyze of values of one variable (e.g. Reaction time), which is numerical.
 
 t.test(RT,mu=500) # H: mu=500
 
@@ -50,7 +48,7 @@ t.test(RT,mu=500) # H: mu=500
 #mean of x 
 # 662.0455 
 
-######### T-test za uparene uzorke.
+###################### T-test for paired samples
 
 upareni <- read.delim(file.choose())
 attach(upareni)
@@ -69,13 +67,11 @@ t.test(RT1,RT2,paired=TRUE)
 #mean of the differences 
 #                  28.75 
 
-###################### Neparametrijski ekvivalenti
+###################### Non-parametric equivalents to t-test
 
-# Za jedan uzorak nema smisla (setimo se hi-kvadrata).
+###################### Mann–Whitney U (for two independent samples)
 
-# Za dva nezavisna uzorka (Mann–Whitney U).
-
-#Primer: imate onu nasu varijablu viseznacnost, ali umesto rt imate odgovore na likertu.
+# For example: you have one categorical variable (Suffix ambiguity; 2 levels; categorical; independent variable), and you have some answers on Likert scale (ordinal; dependent variable).
 
 nonpar <- read.delim(file.choose())
 attach(nonpar)
@@ -88,7 +84,7 @@ wilcox.test(Likert1~SuffixAmbiguity)
 #data:  Likert1 by SuffixAmbiguity
 #W = 197.5, p-value = 0.2898
 
-# Za ponovljena merenja (Wilcoxon signed rank test).
+###################### Wilcoxon signed rank test (for paired samples)
 
 wilcox.test(Likert1,Likert2,paired=TRUE)
 
@@ -99,9 +95,9 @@ wilcox.test(Likert1,Likert2,paired=TRUE)
 
 ###################### ANOVA
 
-# Ista pravila kao i kod t-testa, s tim sto NV mora imati dve ili vise grupa (obavezno, veci uzorak!).
+# The same requirements as for the t-test, with factor that having two or more levels (groups).
 
-# One-way ANOVA.
+###################### One-way ANOVA
 
 anova <- read.delim(file.choose())
 attach(anova)
@@ -114,7 +110,7 @@ summary(primer1)
 #SuffixAmbiguity  2   2039    1019   0.062   0.94
 #Residuals       41 679461   16572
 
-# ANCOVA (odavde vise nije ovako lako, morate biti malo mastoviti).
+###################### ANCOVA
 
 # Bez interakcije (nju cemo kod dole testirati, kod Two-way).
 primer2 <- aov(RT ~ SuffixAmbiguity + SuffixFrequency, data=anova)
@@ -125,7 +121,8 @@ summary(primer2)
 #SuffixFrequency  1  14171   14171   0.852  0.362
 #Residuals       40 665290   16632  
 
-# Two-way ANOVA.
+###################### Two-way ANOVA
+
 primer3 <- aov(RT ~ SuffixAmbiguity*SuffixFrequency, data=anova)
 summary(primer3)
 
@@ -135,7 +132,7 @@ summary(primer3)
 #SuffixAmbiguity:SuffixFrequency  2  10604    5302   0.308  0.737
 #Residuals                       38 654686   17229  
 
-# Post-hoc (topla preporuka TukeyHSD, ali ne preorpucujem da radite ovo sami dok ne naucite sve dobro)
+###################### Post-hoc (recommendation: TukeyHSD)
 
 TukeyHSD(primer2)
 
