@@ -2,6 +2,9 @@
 
 ***Course schedule***:
 
+Markup : - [Lecture 1] *Statistics for Linguistics in R: An introduction*
+         - [x] A completed task
+
 | Lecture 1 : *Statistics for Linguistics in R: An introduction* | 
 | Lecture 2 : *Fundamentals of R: Part I* |
 | Lecture 3 : *Fundamentals of R: Part II* |
