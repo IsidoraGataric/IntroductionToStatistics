@@ -1,6 +1,6 @@
 ######################### Introduction to R
 
-# Installing the packages (definitely, you will not need this all yet).
+# Installing the packages.
 install.packages("car")
 install.packages("amap")
 install.packages("aod")
@@ -21,7 +21,6 @@ install.packages("corpora")
 ######################### Factors
 
 # Creating vector and factor (from this vector).
-
 rm(list=ls(all=TRUE))
 x <- c(rep("male", 5), rep("female", 5))
 y <- factor(x)
@@ -34,8 +33,7 @@ is.factor(y)
 
 # [1] TRUE
 
-# When this can be very useful for us?! When we have some numbers, and we need to make intervals (factor levels) of these numbers and therefore we also make a factor of numerical data.
-
+# When this can be very useful for us?! When we have some numbers, and we need to make intervals (factor levels) of those numbers, therefore we also make a factor of numerical data.
 cut(1:9, 3) 
 # [1] (0.992,3.67] (0.992,3.67] (0.992,3.67] (3.67,6.33]  (3.67,6.33] 
 # [6] (3.67,6.33]  (6.33,9.01]  (6.33,9.01]  (6.33,9.01] 
@@ -48,7 +46,6 @@ y
 is.factor(y)
 
 # Loading and saving factors!
-
 a <- factor(c("alpha", "charly", "bravo"))
 a 
 # [1] alpha  charly bravo
@@ -57,13 +54,10 @@ a
 # Save this factor in some existing .txt file.
 cat(a, sep="\n", file=file.choose())
 
-# Why does R give us numbers 1, 2, 3 ?! Because he only recognizes the levels of some factor (we did not define him as a vector with textual data).
+# Why R gives us numbers 1, 2, 3 ?! Because R only recognizes the levels of some factor (we did not define to R as a vector with textual data).
 cat(as.vector(a), sep="\n", file=file.choose())
 
-# Editing factors
-
 # Defining and printing vectors.
-
 x <- factor(rep(c("long", "intmed", "short"), 1:3))
 x
 # [1] long   intmed intmed short  short  short 
@@ -75,7 +69,6 @@ x
 # Levels: short intmed long
 
 # If we want this to be sorted from the last level (third) to the first (first).
-
 x <- factor(x, levels=levels(x)[3:1])
 x
 # [1] long   intmed intmed short  short  short 
@@ -103,15 +96,13 @@ x
 ######################### Data Frames
 
 # Generating data frames.
-
 rm(list=ls(all=TRUE))
 POS <- c("adj", "adv", "n", "conj", "prep")
 TOKENFREQ <- c(421, 337, 1411, 458, 455)
 TYPEFREQ <- c(271, 103, 735, 18, 37)
 CLASS <- c("open", "open", "open", "closed", "closed")
 
-# Creating of data frame.
-
+# Creating data frame.
 x <- data.frame(POS, TOKENFREQ, TYPEFREQ, CLASS)
 x
 #    POS TOKENFREQ TYPEFREQ  CLASS
@@ -129,10 +120,7 @@ str(x)
 #  $ TYPEFREQ : num  271 103 735 18 37
 #  $ CLASS    : Factor w/ 2 levels "closed","open": 2 2 2 1 1
 
-# Loading and saving data frames.
-
 # Loading already existing data frames (a bit longer explanation in the book, we will only present here one example).
-
 a2 <- read.table(file.choose(), header=TRUE, sep="\t", quote="", comment.char="", row.names=1)
 a2 
 str(a2)
@@ -156,7 +144,6 @@ a
 a$TOKENFREQ
 
 # Print some specific cases, rows, and columns.
-
 a[2,3]
 # [1] 103
 
@@ -173,7 +160,6 @@ a[2:3, 3:4]
 #3      735  open
 
 # Function WHICH.
-
 which(a[,2]>450)
 #[1] 3 4 5
 
@@ -201,7 +187,7 @@ b
 #2 adv       337      103  open
 #3   n      1411      735  open
 
-# Or even better (I recommend!!!!) create a subset, and you can do what you want on it.
+# Or even better (I recommend this!!!!) create a subset, and you can do what you want on it.
 b <-subset(a, CLASS=="open")
 b
 #  POS TOKENFREQ TYPEFREQ CLASS
@@ -234,4 +220,3 @@ a[order.index, ]
 #1  adj       421      271   open
 #5 prep       455       37 closed
 #4 conj       458       18 closed
-
