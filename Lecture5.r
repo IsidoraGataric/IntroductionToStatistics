@@ -1,7 +1,6 @@
 ########################## Descriptive statistics (bivariate)
 
 # Installing the packages.
-
 install.packages("car")
 install.packages("amap")
 install.packages("aod")
@@ -21,9 +20,8 @@ install.packages("corpora")
 
 # What is cross-tabulation? The "analysis" we do when we want to determine the frequency of each of the categories (for example, whether the same number of men and women produced by these three categories of FILLER variable).
 
-# Factor -- pol.
+# Factor -- sex.
 # Dependent variable -- FILLER (3 kategorije). Both, DV & F are categorical variables.
-
 UHM <- read.delim(file.choose())
 attach(UHM)
 
@@ -36,7 +34,6 @@ freqs
 #  uhm        170  104
 
 # Percentages.
-
 percentages <- prop.table(table(FILLER, SEX), margin=2)
 percentages
 
@@ -47,14 +44,11 @@ percentages
 
 # MARGIN = 1; MARGINE = 2?! Difference: margin 2 is a better option because it is the sum of all the levels of the variable, when the margin is 1 then you can see only the relationship between 2 levels of one factor (MALE vs. FEMALE), but not the ratio of that level to others (for e.g. MALE/SMOKE, MALE/NO-SMOKE, FEMALE/SMOKE, FEMALE/NO-SMOKE).
 
-# More detailed. 
-
 addmargins(freqs)
 
 ########################## Bar plots and mosaic plots
 
 plot(FILLER~SEX)
-
 plot(GENRE,FILLER)
 plot(table(GENRE,FILLER))
 mosaicplot(table(GENRE,FILLER))
@@ -62,14 +56,12 @@ mosaicplot(table(GENRE,FILLER))
 ########################## Spineplots
 
 # These graphics are for cases where your DV is categorical (nominal) and IV (independent variable) is continuous (interval / ratios).
-
 spineplot(FILLER~LENGTH)
 
 ########################## Line plots
 
 fill.table <- prop.table(table(FILLER, SEX), 2)
 fill.table
-
 #         SEX
 #FILLER       female      male
 #  silence 0.3406375 0.3232932
@@ -82,12 +74,10 @@ points(fill.table[,2], type="b")
 ########################## Means
 
 # Reverse case, DV is continuous (interval/ratios), IV/Factor is categorical (nominal). 
-
 mean(LENGTH[SEX == "female"])
 # [1] 928.3984
 mean(LENGTH[SEX == "male"])
 # [1] 901.5803
-
 tapply(LENGTH, SEX, mean)
 #  female     male 
 #928.3984 901.5803 
@@ -100,7 +90,6 @@ boxplot(LENGTH~GENRE, notch=TRUE, ylim=c(0, 1600))
 
 interaction.plot(FILLER, SEX, LENGTH)
 grid()
-
 interaction.plot(SEX, FILLER, LENGTH)
 grid()
 
@@ -112,11 +101,9 @@ interaction.plot(SEX, FILLER, LENGTH, ylim=range(LENGTH))
 ########################## Correlation coefficients
 
 # Both variables are interval level of measure. 
-
 rm(list=ls(all=TRUE))
 
 # Loading new data set.
-
 ReactTime <- read.delim(file.choose())
 str(ReactTime)
 attach(ReactTime)
@@ -130,6 +117,5 @@ covariance
 # [1] 79.28947
 
 # Pay attention on method, we calculated here Pearson correlation, but you have Spearman Rho, or Kendall Tau? We'll talk about it later.
-
 cor(MS_LEARNER, LENGTH, method="pearson")
 # [1] 0.9337171
