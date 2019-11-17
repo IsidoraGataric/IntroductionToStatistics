@@ -1,12 +1,12 @@
 ##################### Distribution testing and chi-square
 
-# Why is it important for us to test the distribution normality?
+# Why it matters to us to test the distribution normality?
 
-# Remember two tests: Wilk-Shapiro & Kolmogorov-Smirnov.
+# Remember two tests for distribution normality check: Wilk-Shapiro & Kolmogorov-Smirnov.
 
 # Data for test: statling.txt
 
-# Note: When you start to GAMMs/GLMER etc. you have one function "powerTransform" which tells you whether RTs needs to be transformed by log transformation or by inversion transformation.
+# Note: When you apply GAMMs/GLMER etc. you have one function "powerTransform" which tells you whether RTs needs to be transformed by log transformation or by inversion transformation.
 
 matrica <- read.delim(file.choose())
 attach(matrica)
@@ -28,21 +28,21 @@ ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 
 # The function "jitter" allows randomization of this numerical vector.
 
-# Note: Cramér's V is a measure of association between two nominal variables, giving a value between 0 and +1 (inclusive). This measure is related to the Chi-square.
+# Note: Cramér's V is a measure of association between two nominal variables, giving you a value between 0 and +1 (inclusive). This measure is related to the Chi-square.
 
 ##################### Chi-square and non-parametric test
 
 # Some differences between parametric and non-parametric tests:
 
 #1. NPs do not require normal distribution;
-#2. They (NPs) are used for the nominal and the ordinated variables;
-#3. Works with qualitative data;
-#4. They have more robustness ("injuries of the condition");
+#2. NPSs are used for the nominal and the ordinated variables;
+#3. NPs work with qualitative data;
+#4. NPs have more robustness ("injuries of the condition");
 #5. NPS defect: very weak tests (1/3 weaker in comparision to parametric tests).
 
-----
+# ----
 
-# Chi sqaure (works with qualitative data) -- data is first categorized, and then we get the frequencies over which we work (we have observed and marginal frequencies).
+# Chi sqaure (works with qualitative data) -- data is first categorized, and then we get the frequencies with which we work (we have observed and expected frequencies).
 
 # Requirements for application:
 
@@ -50,19 +50,17 @@ ks.test(jitter(matrica$RT), "pnorm", mean(matrica$RT), sd(matrica$RT))
 #2. The sum of the expected frequencies must be equal to the sum of the observed frequencies. We need to keep in mind that each respondent gives us only one answer;
 #3. A sufficiently large sample.
 
-# Yates correction (when there is a big difference between the observed and expected frequencies, so each difference is reduced by 0.5.
+# Yates correction (when there is a big difference between the observed and expected frequencies, so each difference is reduced by 0.5.).
 
-##################### Hi-kvadrat na jednom uzorku.
+##################### Chi-square for one sample
 
 # Data set: hikvadrat_glasanje.txt
-
 hi1uz <- read.delim(file.choose())
 attach(hi1uz)
 table(hi1uz)
 
 test <- chisq.test(table(hi1uz)) 
 test
-
 #        Chi-squared test for given probabilities
 #
 #data:  table(hi1uz)
@@ -71,7 +69,6 @@ test
 ##################### Chi-sqaure with two independent variables
 
 # Data set: hikvadrat_glasanjepol.txt
-
 hikvad2 <- read.delim(file.choose())
 attach(hikvad2)
 table(hikvad2)
@@ -79,13 +76,11 @@ table(hikvad2)
 test <- chisq.test(table(hikvad2)) 
 test
 
-# We would also get the same if we did this!?
-
+# We would also get the same result if we apply this!?
 test <- chisq.test(hikvad2$glasanje, hikvad2$pol) 
 test
 
 # If we have two independent samples, but we have an extremely small number of respondents, the Fisher exact test (like the chi-square, but for small samples) is needed.
-
 fisher.test(table(hikvad2))
 #        Fisher's Exact Test for Count Data
 #
@@ -100,7 +95,6 @@ fisher.test(table(hikvad2))
 # McNemar test.
 
 # Data set: hikvadarat_ponovljena.txt
-
 ponovo <- read.delim(file.choose())
 attach(ponovo)
 table(ponovo)
@@ -113,7 +107,6 @@ chisq.test(table(ponovo))
 
 addmargins(table(ponovo))
 mcnemar.test(table(ponovo), correct=FALSE)
-
 #        McNemar's Chi-squared test
 #
 #data:  table(ponovo)
