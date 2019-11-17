@@ -5,6 +5,7 @@
 ###################### T-TEST
 
 # Requirements for applying t-test:
+
 #1. Normality of the ditribution (Gaussian distribution);
 #2. A sufficiently large sample;
 #3. Homogeneity of variance;
@@ -13,7 +14,6 @@
 # T-test is also distinguished for dependent and independent samples, we test the difference between the two groups.
 
 # Data set loading.
-
 matrica <- read.delim(file.choose())
 attach(matrica)
 matrica
@@ -21,7 +21,6 @@ matrica
 ###################### T-test for two independent samples
 
 t.test(RT~SuffixAmbiguity)
-
 #data:  RT by SuffixAmbiguity
 #t = 0.66144, df = 35.082, p-value = 0.5127
 #alternative hypothesis: true difference in means is not equal to 0
@@ -38,7 +37,6 @@ t.test(RT~SuffixAmbiguity)
 # Analyze of values of one variable (e.g. Reaction time), which is numerical.
 
 t.test(RT,mu=500) # H: mu=500
-
 #data:  RT
 #t = 8.5382, df = 43, p-value = 8.31e-11
 #alternative hypothesis: true mean is not equal to 500
@@ -55,7 +53,6 @@ attach(upareni)
 upareni
 
 t.test(RT1,RT2,paired=TRUE)
-
 #        Paired t-test
 #
 #data:  RT1 and RT2
@@ -78,7 +75,6 @@ attach(nonpar)
 nonpar
 
 wilcox.test(Likert1~SuffixAmbiguity)
-
 #        Wilcoxon rank sum test with continuity correction
 #
 #data:  Likert1 by SuffixAmbiguity
@@ -87,7 +83,6 @@ wilcox.test(Likert1~SuffixAmbiguity)
 ###################### Wilcoxon signed rank test (for paired samples)
 
 wilcox.test(Likert1,Likert2,paired=TRUE)
-
 #        Wilcoxon signed rank test with continuity correction
 #
 #data:  Likert1 and Likert2
@@ -105,17 +100,15 @@ anova
 
 primer1 <- aov(RT ~ SuffixAmbiguity, data=anova)
 summary(primer1)
-
 #                Df Sum Sq Mean Sq F value Pr(>F)
 #SuffixAmbiguity  2   2039    1019   0.062   0.94
 #Residuals       41 679461   16572
 
 ###################### ANCOVA
 
-# Bez interakcije (nju cemo kod dole testirati, kod Two-way).
+# Without interaction.
 primer2 <- aov(RT ~ SuffixAmbiguity + SuffixFrequency, data=anova)
 summary(primer2)
-
 #                Df Sum Sq Mean Sq F value Pr(>F)
 #SuffixAmbiguity  2   2039    1019   0.061  0.941
 #SuffixFrequency  1  14171   14171   0.852  0.362
@@ -125,7 +118,6 @@ summary(primer2)
 
 primer3 <- aov(RT ~ SuffixAmbiguity*SuffixFrequency, data=anova)
 summary(primer3)
-
 #                                Df Sum Sq Mean Sq F value Pr(>F)
 #SuffixAmbiguity                  2   2039    1019   0.059  0.943
 #SuffixFrequency                  1  14171   14171   0.823  0.370
