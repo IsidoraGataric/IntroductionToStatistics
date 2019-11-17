@@ -1,6 +1,6 @@
 ######################### Introduction to R
 
-# Installing the packages (definitely, you will not need this all yet).
+# Installing the packages (definitely, you will not need all this packages yet, but it's better to have it all in one place).
 install.packages("car")
 install.packages("amap")
 install.packages("aod")
@@ -21,7 +21,7 @@ a <- c(1, 2, 3)
 mean(a)
 # [1] 2
 
-# What happens when you do not complete the code, but you run your code, and get the "+"?!
+# What happens when you do not complete the code, but you run your code? You will see only the "+" sign?!
 2-
 # + 
 
@@ -39,7 +39,7 @@ a <- sqrt(x=5)
 print(a)
 # [1] 2.236068
 
-# ... you can do it like this ...
+# You can do it like this, also ...
 a
 # [1] 2.236068
 
@@ -63,8 +63,7 @@ some.data <- c(1:10)
 sample(x=some.data, size=5, replace=TRUE, prob=NULL)
 # [1] 2 4 9 1 4
 
-# Some variations on this topic.
-
+# Some options related to this topic.
 sample(some.data)
 sample(some.data, size=7)
 sample(some.data, size=3)
@@ -74,13 +73,11 @@ sample(some.data, size=3)
 ######################### Vectors
 
 # Generating vectors.
-
 a <-sqrt(5)
 a
 # [1] 2.236068
 
 # Do we make the difference between these code lines?
-
 is.vector(a)
 # [1] TRUE
 
@@ -91,20 +88,17 @@ is.factor(a)
 length(a)
 # 1
 
-# Now we will make a set of data with multiple elements?
-
+# Now we can create a data set with multiple elements?
 numbers <- c(1, 2, 3)
 numbers
 # [1] 1 2 3
 
 # Loading all elements from two different data sets (numbers1, and numbers2).
-
 numbers1 <- c(1, 2, 3); numbers2 <- c(4, 5, 6)
 numbers <- c(numbers1, numbers2)
 numbers
 
 # A very similar function is APPEND (similar to C).
-
 numbers <- append(numbers1, numbers2)
 numbers
 
@@ -113,7 +107,7 @@ evenmore <- c(7, 8)
 numbers <- append(numbers, evenmore)
 numbers
 
-# Type of your data? (very important when processing data!). You'll work with both, textual and numerical data.
+# What type is your data? (very important when processing data!). You'll work with both, textual and numerical data.
 
 # Example 1 (numeric): We want to print only numbers 1 to 3.
 numbers.num <- c(1, 2, 3) 
@@ -145,7 +139,6 @@ numbers <- seq(1, 5)
 numbers
 
 # Task: How can we create a vector (for example "x") that contains the sequential set of steady numbers from 2 to 10, and which will repeat 6 times?
-
 numbers <- seq(2, 10, 2)
 x <- rep (numbers, 6)
 x
@@ -154,7 +147,7 @@ x
 x<-scan(file=file.choose(), sep="\n")
 # Read 5 items
 
-# Alternative (you will need us later).
+# Alternative (you will need this later).
 dat=read.table("02_exercises_vector1.txt", sep="\n")
 
 # We want to see what the data is in the data set.
@@ -162,12 +155,10 @@ x
 # [1] 1 2 3 4 5
 
 # How to create vector X and to save it in the existing data set?
-
 x <- append(x, c("foxtrot", "golf"))
 cat(x, file=file.choose())
 
 # Editing the vector.
-
 # We aline the numbers from 3.4 to 3.6, which differ from 0.05.
 a <- seq(3.4, 3.6, 0.05)
 a
@@ -246,16 +237,13 @@ x*y
 #In x * y : longer object length is not a multiple of shorter object length
 
 # If you have a lot of data and you want to sort them.
-
 x <- c(6, 7, 2, 4, 9)
 y <- c(1, 3, 7)
 sort(x)
 sort(y)
 
 # You can define whether your data will be in decreasing or increasing order.
-
 x <- c(6, 7, 2, 4, 9)
 y <- c(1, 3, 7)
 sort(x, decreasing=TRUE)
 sort(y, decreasing=FALSE)
-
