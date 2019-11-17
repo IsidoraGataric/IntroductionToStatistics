@@ -43,7 +43,6 @@ percentages
 #  uhm     0.3386454 0.2088353
 
 # MARGIN = 1; MARGINE = 2?! Difference: margin 2 is a better option because it is the sum of all the levels of the variable, when the margin is 1 then you can see only the relationship between 2 levels of one factor (MALE vs. FEMALE), but not the ratio of that level to others (for e.g. MALE/SMOKE, MALE/NO-SMOKE, FEMALE/SMOKE, FEMALE/NO-SMOKE).
-
 addmargins(freqs)
 
 ########################## Bar plots and mosaic plots
