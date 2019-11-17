@@ -1,5 +1,3 @@
-# Note: Continuation of the previous Lecture 7.
-
 ############################### MANOVA
 
 manova <- read.delim(file.choose())
@@ -11,7 +9,6 @@ manova
 Y <- cbind(Rtword, Rtsentence)
 fit <- manova(Y ~ SuffixAmbiguity*SuffixFrequency, data=manova)
 summary(fit, test="Wilks")
-
 #                                Df   Wilks approx F num Df den Df  Pr(>F)  
 #SuffixAmbiguity                  2 0.90431  0.95420      4     74 0.43783  
 #SuffixFrequency                  1 0.86553  2.87412      2     37 0.06914 .
@@ -31,15 +28,14 @@ nonparamanova
 ############################### Kruskal-Wallis (ANOVA; non-paired samples)
 
 kruskal.test(Rtword ~ SuffixAmbiguity, data = nonparamanova) 
-
 #        Kruskal-Wallis rank sum test
 #
 #data:  Rtword by SuffixAmbiguity
 #Kruskal-Wallis chi-squared = 11.255, df = 2, p-value = 0.003598
 
-# Note: You have Friedman test for paired samples, but code does not work in this version of R, I will sent to you code for this version.
+# Note: You have Friedman test for paired samples, but code does not work in this version of R, I will sent to you code for this version of R.
 
-############################### CORRELATIONS
+############################### CORRELATION
 
 # When do we use correlation? When we want to investigate if there is a relation between two (and more) variables.
 
@@ -48,7 +44,6 @@ kruskal.test(Rtword ~ SuffixAmbiguity, data = nonparamanova)
 ############################### Pearsons product moment correlation (Pearson's r)
 
 cor.test(SuffixFrequency, SuffixProductivity, method="pearson")
-
 #data:  SuffixFrequency and SuffixProductivity
 #t = 17.707, df = 42, p-value < 2.2e-16
 #alternative hypothesis: true correlation is not equal to 0
@@ -61,7 +56,6 @@ cor.test(SuffixFrequency, SuffixProductivity, method="pearson")
 ############################### Spearman rank correlation coefficient Rho (Spearman's Rho)
 
 cor.test(NounLength, SuffixProductivity, method="spearman")
-
 #        Spearman's rank correlation rho
 #
 #data:  NounLength and SuffixProductivity
@@ -82,7 +76,6 @@ cor.test(SuffixAmbiguity, SuffixProductivity, method="kendall")
 transform(nonparamanova, SuffixProductivity = as.numeric(SuffixProductivity))
 
 cor.test(NounLength, SuffixProductivity, method="kendall")
-
 #       Kendall's rank correlation tau
 #
 #data:  NounLength and SuffixProductivity
@@ -99,15 +92,12 @@ attach(regresija)
 regresija
 
 # Simple vs. Multiple Regression.
-
 # Linear vs. Logistic Regression.
-
 # Linear (Simple + Multiple).
 
 reg1 <- lm(RT ~ SuffixFrequency, data=regresija)
 print(reg1)
 summary(reg1)
-
 #Coefficients:
 #                 Estimate Std. Error t value Pr(>|t|)    
 #(Intercept)     6.480e+02  2.401e+01  26.991   <2e-16 ***
@@ -118,7 +108,6 @@ summary(reg1)
 reg2 <- lm(RT ~ SuffixFrequency + SuffixProductivity, data=regresija)
 print(reg2)
 summary(reg2)
-
 #Coefficients:
 #                    Estimate Std. Error t value Pr(>|t|)    
 #(Intercept)        645.69607   25.66269  25.161   <2e-16 ***
@@ -130,11 +119,10 @@ summary(reg2)
 reg3 <- glm(Accuracy ~ SuffixFrequency + SuffixProductivity, family=binomial, data=regresija)
 print(reg3)
 summary(reg3)
-
 #Coefficients:
 #                     Estimate Std. Error z value Pr(>|z|)
 #(Intercept)         1.0096868  0.9482513   1.065    0.287
 #SuffixFrequency    -0.0002775  0.0005595  -0.496    0.620
 #SuffixProductivity  0.0152797  0.0162529   0.940    0.347
 
-# PLEASE read a bit about interpretation of Logistics Regression results: https://datascienceplus.com/perform-logistic-regression-in-r/
+# Please read a bit about interpretation of Logistics Regression results: https://datascienceplus.com/perform-logistic-regression-in-r/
